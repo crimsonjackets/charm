@@ -1,0 +1,2 @@
+namespace :charm do
+end
