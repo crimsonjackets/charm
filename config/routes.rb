@@ -1,6 +1,4 @@
-require 'charm/routing/constraints'
-
 Charm::Engine.routes.draw do
-  scope '(:locale)', constraints: Charm::Routing::Constraints::Locale do
-  end
+  resources :pages, only: %w[index new create]
+  resource :page, except: %w[index new create], path: '(*path)', defaults: { path: '' }
 end
