@@ -3,4 +3,4 @@ meta charset="utf-8"
 = csrf_meta_tags
 = stylesheet_link_tag 'charm', media: 'all', data: { turbolinks_track: true }
 = javascript_include_tag 'charm', data: { turbolinks_track: true }
-= render file: 'layouts/application'
+= yield
