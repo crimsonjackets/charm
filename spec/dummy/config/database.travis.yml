@@ -1,0 +1,15 @@
+defaults: &defaults
+  adapter: postgresql
+  encoding: unicode
+  database: dummy_<%= Rails.env %>
+  username: postgres
+  pool: 5
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
