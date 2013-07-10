@@ -8,7 +8,13 @@ module Charm
       def call(env)
         @app.call(env)
       rescue StandardError => error
-        raise
+        error_page = Charm.config.error_pages[error.class.name]
+
+        if error_page
+          "#{error_page[:controller]}_controller".classify.constantize.action(error_page[:action]).call(env)
+        else
+          raise
+        end
       end
     end
   end
