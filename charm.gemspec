@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'pg'
   s.add_dependency 'slim', '~> 2.0.0'
   s.add_dependency 'sass-rails', '~> 4.0.0'
+  s.add_dependency 'uglifier', '>= 1.3.0'
   s.add_dependency 'coffee-rails', '~> 4.0.0'
   s.add_dependency 'jquery-rails', '~> 3.0.1'
   s.add_dependency 'turbolinks', '~> 1.2.0'

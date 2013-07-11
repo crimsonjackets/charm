@@ -15,9 +15,5 @@ module Charm
     initializer 'charm.error_handler_middleware' do |app|
       app.middleware.use 'Charm::Middleware::ErrorHandler'
     end
-
-    initializer 'charm.router_middleware' do |app|
-      app.middleware.use 'Charm::Middleware::Router'
-    end
   end
 end
