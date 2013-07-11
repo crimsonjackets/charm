@@ -17,8 +17,7 @@ ActiveRecord::Schema.define(version: 20130709232040) do
   enable_extension "plpgsql"
 
   create_table "pages", force: true do |t|
-    t.integer  "parent_id"
-    t.string   "slug",                         null: false
+    t.string   "path",                         null: false
     t.boolean  "published",    default: false, null: false
     t.datetime "published_at"
     t.string   "heading",                      null: false

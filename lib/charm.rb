@@ -6,6 +6,10 @@ module Charm
   autoload :Forbidden, 'charm/errors/forbidden'
   autoload :NotFound, 'charm/errors/not_found'
 
+  module Validators
+    autoload :URI, 'charm/validators/uri'
+  end
+
   module Middleware
     autoload :ErrorHandler, 'charm/middleware/error_handler'
     autoload :Router, 'charm/middleware/router'
