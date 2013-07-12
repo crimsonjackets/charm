@@ -1,0 +1,28 @@
+- content_for :heading, 'Страницы'
+
+h1= yield :heading
+
+table
+  thead
+    tr
+      th= t('activerecord.attributes.page.path')
+      th= t('activerecord.attributes.page.published_at')
+      th= t('activerecord.attributes.page.heading')
+      th
+
+  tbody
+    - @pages.each do |page|
+      tr
+        td= link_to page.path, page
+        td= Russian::strftime(page.published_at, '%e %B %Y в %k:%M') if page.published
+        td= page.heading
+        td
+          = link_to 'Просмотреть', page
+          |
+          = form_for page, html: { id: nil, class: nil } do |f|
+            = f.hidden_field :published, value: (page.published ? '0' : '1')
+            = content_tag :span, (page.published ? 'Скрыть' : 'Опубликовать'), onclick: "$(this).closest('form').submit()"
+          |
+          = link_to 'Редактировать', edit_page_path(page)
+          |
+          = link_to 'Удалить', page, method: :delete, data: { confirm: 'Вы уверены?' }

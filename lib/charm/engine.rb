@@ -1,3 +1,4 @@
+require 'russian'
 require 'slim'
 require 'jquery-rails'
 require 'turbolinks'
@@ -6,14 +7,22 @@ module Charm
   class Engine < ::Rails::Engine
     isolate_namespace Charm
 
-    initializer 'charm.postgresql_monkey_patch' do |app|
+    initializer 'charm.active_record_configuration' do |app|
       ActiveSupport.on_load :active_record do
         ActiveRecord::ConnectionAdapters::PostgreSQLAdapter::NATIVE_DATABASE_TYPES[:string].delete(:limit)
       end
     end
 
-    initializer 'charm.error_handler_middleware' do |app|
-      app.middleware.use 'Charm::Middleware::ErrorHandler'
+    initializer 'charm.action_view_configuration' do |app|
+      app.config.action_view.field_error_proc = ->(html_tag, _) { html_tag }
+    end
+
+    initializer 'charm.url_helpers' do |app|
+      ActionDispatch::Routing::RouteSet::NamedRouteCollection.send :include, UrlHelpers
+    end
+
+    initializer 'charm.error_handler' do |app|
+      app.middleware.use 'Charm::ErrorHandler'
     end
   end
 end

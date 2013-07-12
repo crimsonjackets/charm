@@ -9,6 +9,8 @@ Gem::Specification.new do |s|
   s.executables = %w[charm]
   s.add_dependency 'rails', '~> 4.0.0'
   s.add_dependency 'pg'
+  s.add_dependency 'russian'
+  s.add_dependency 'bcrypt-ruby', '~> 3.0.0'
   s.add_dependency 'slim', '~> 2.0.0'
   s.add_dependency 'jbuilder', '~> 1.2'
   s.add_dependency 'sass-rails', '~> 4.0.0'

@@ -4,17 +4,15 @@ module Charm
 
     @@defaults = {
       error_pages: {
-        'Charm::Unauthorized' => { controller: 'charm/error_pages', action: :unauthorized },
-        'OAuth::Unauthorized' => { controller: 'charm/error_pages', action: :unauthorized },
-        'Charm::Forbidden' => { controller: 'charm/error_pages', action: :forbidden },
-        'Charm::NotFound' => { controller: 'charm/error_pages', action: :not_found },
-        'ActiveRecord::RecordNotFound' => { controller: 'charm/error_pages', action: :not_found }
+        'Charm::Unauthorized' => 'charm/error_pages#unauthorized',
+        'OAuth::Unauthorized' => 'charm/error_pages#unauthorized',
+        'Charm::Forbidden' => 'charm/error_pages#forbidden',
+        'Charm::NotFound' => 'charm/error_pages#not_found',
+        'ActiveRecord::RecordNotFound' => 'charm/error_pages#not_found'
       }
     }
 
-    def self.defaults
-      @@defaults
-    end
+    mattr_reader :defaults
 
     def initialize
       @@defaults.each { |k, v| self.send "#{k}=", v }

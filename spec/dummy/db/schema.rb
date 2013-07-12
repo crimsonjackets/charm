@@ -11,17 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130709232040) do
+ActiveRecord::Schema.define(version: 20130711131321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: true do |t|
+    t.string "type",            default: "User", null: false
+    t.string "email",                            null: false
+    t.string "password_digest",                  null: false
+    t.string "name",                             null: false
+  end
+
+  add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
 
   create_table "pages", force: true do |t|
     t.string   "path",                         null: false
     t.boolean  "published",    default: false, null: false
     t.datetime "published_at"
+    t.string   "template"
     t.string   "heading",                      null: false
     t.text     "body",                         null: false
   end
+
+  add_index "pages", ["path"], name: "index_pages_on_path", unique: true, using: :btree
 
 end

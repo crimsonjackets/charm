@@ -6,14 +6,13 @@ module Charm
   autoload :Forbidden, 'charm/errors/forbidden'
   autoload :NotFound, 'charm/errors/not_found'
 
+  autoload :ErrorHandler, 'charm/error_handler'
+
   module Validators
     autoload :URI, 'charm/validators/uri'
   end
 
-  module Middleware
-    autoload :ErrorHandler, 'charm/middleware/error_handler'
-    autoload :Router, 'charm/middleware/router'
-  end
+  autoload :UrlHelpers, 'charm/url_helpers'
 
   def self.config
     Configuration.instance

@@ -2,13 +2,17 @@ module Charm
   class ErrorPagesController < ApplicationController
     include PreviousLocation
 
-    def unauthorized
+    before_action -> {
       self.previous_location = request.fullpath
-      render status: :unauthorized
+      @errors = []
+    }, only: %w[unauthorized forbidden]
+
+    def unauthorized
+      render 'charm/sessions/new', status: :unauthorized
     end
 
     def forbidden
-      render status: :forbidden
+      render 'charm/sessions/new', status: :forbidden
     end
 
     def not_found

@@ -1,0 +1,21 @@
+ru:
+  session:
+    created: Вы вошли.
+    destroyed: Вы вышли.
+    unable_to_create: Не удалось войти.
+
+  page:
+    created: Страница добавлена.
+    updated: Страница изменена.
+    published: Страница опубликована.
+    unpublished: Страница скрыта.
+    destroyed: Страница удалена.
+
+  activerecord:
+    attributes:
+      page:
+        published: Опубликовать
+        published_at: Дата публикации
+        path: Адрес
+        heading: Заголовок
+        body: Текст

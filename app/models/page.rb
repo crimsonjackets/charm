@@ -5,6 +5,7 @@ class Page < ActiveRecord::Base
     presence: true
 
   validates :path,
+    uniqueness: true,
     path: true,
     unless: -> { path.blank? }
 
