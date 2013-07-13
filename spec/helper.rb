@@ -9,4 +9,7 @@ require 'ffaker'
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.use_transactional_fixtures = true
+
+  config.color_enabled = true
+  config.tty = true
 end
