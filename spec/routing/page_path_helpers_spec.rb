@@ -26,27 +26,25 @@ describe 'Page path helpers' do
   end
 
   context do
-    before do
-      @foo_page = create(:page, path: '/foo')
-      @foo_bar_page = create(:page, path: '/foo/bar')
-    end
+    let(:foo_page) { create :page, path: '/foo' }
+    let(:foo_bar_page) { create(:page, path: '/foo/bar') }
 
     describe 'page_path' do
-      specify { page_path(@foo_page).should == '/foo' }
-      specify { page_path(@foo_page.id).should == '/foo' }
-      specify { page_path(@foo_page.id.to_s).should == '/foo' }
-      specify { page_path(@foo_bar_page).should == '/foo/bar' }
-      specify { page_path(@foo_bar_page.id).should == '/foo/bar' }
-      specify { page_path(@foo_bar_page.id.to_s).should == '/foo/bar' }
+      specify { page_path(foo_page).should == '/foo' }
+      specify { page_path(foo_page.id).should == '/foo' }
+      specify { page_path(foo_page.id.to_s).should == '/foo' }
+      specify { page_path(foo_bar_page).should == '/foo/bar' }
+      specify { page_path(foo_bar_page.id).should == '/foo/bar' }
+      specify { page_path(foo_bar_page.id.to_s).should == '/foo/bar' }
     end
 
     describe 'edit_page_path' do
-      specify { edit_page_path(@foo_page).should == '/foo/edit' }
-      specify { edit_page_path(@foo_page.id).should == '/foo/edit' }
-      specify { edit_page_path(@foo_page.id.to_s).should == '/foo/edit' }
-      specify { edit_page_path(@foo_bar_page).should == '/foo/bar/edit' }
-      specify { edit_page_path(@foo_bar_page.id).should == '/foo/bar/edit' }
-      specify { edit_page_path(@foo_bar_page.id.to_s).should == '/foo/bar/edit' }
+      specify { edit_page_path(foo_page).should == '/foo/edit' }
+      specify { edit_page_path(foo_page.id).should == '/foo/edit' }
+      specify { edit_page_path(foo_page.id.to_s).should == '/foo/edit' }
+      specify { edit_page_path(foo_bar_page).should == '/foo/bar/edit' }
+      specify { edit_page_path(foo_bar_page.id).should == '/foo/bar/edit' }
+      specify { edit_page_path(foo_bar_page.id.to_s).should == '/foo/bar/edit' }
     end
   end
 end
