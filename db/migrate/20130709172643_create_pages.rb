@@ -4,7 +4,6 @@ class CreatePages < ActiveRecord::Migration
       t.string :path, null: false
       t.boolean :published, null: false, default: false
       t.datetime :published_at
-      t.string :template
       t.string :heading, null: false
       t.text :body, null: false
     end

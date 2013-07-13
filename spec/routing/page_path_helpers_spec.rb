@@ -27,13 +27,8 @@ describe 'Page path helpers' do
 
   context do
     before do
-      @foo_page = build(:page)
-      @foo_page.path = '/foo'
-      @foo_page.save!
-
-      @foo_bar_page = build(:page)
-      @foo_bar_page.path = '/foo/bar'
-      @foo_bar_page.save!
+      @foo_page = create(:page, path: '/foo')
+      @foo_bar_page = create(:page, path: '/foo/bar')
     end
 
     describe 'page_path' do

@@ -23,7 +23,7 @@ module Charm
     end
 
     def create
-      @page = Page.new(page_params)
+      @page = Page.new page_params
 
       respond_to do |format|
         if @page.save
@@ -38,7 +38,7 @@ module Charm
 
     def update
       respond_to do |format|
-        if @page.update(page_params)
+        if @page.update page_params
           format.html { redirect_to @page, flash: { success: t('page.updated') } }
           format.json { head :no_content }
         else

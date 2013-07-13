@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130711131321) do
+ActiveRecord::Schema.define(version: 20130713172837) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "accounts", force: true do |t|
     t.string "type",            default: "User", null: false
@@ -22,15 +26,24 @@ ActiveRecord::Schema.define(version: 20130711131321) do
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
 
+  create_table "meta_tags", force: true do |t|
+    t.string "path",                         null: false
+    t.binary "data", default: "\\x04087b00", null: false
+  end
+
   create_table "pages", force: true do |t|
     t.string   "path",                         null: false
     t.boolean  "published",    default: false, null: false
     t.datetime "published_at"
-    t.string   "template"
     t.string   "heading",                      null: false
     t.text     "body",                         null: false
   end
 
   add_index "pages", ["path"], name: "index_pages_on_path", unique: true, using: :btree
+
+  create_table "titles", force: true do |t|
+    t.string "path",  null: false
+    t.string "value", null: false
+  end
 
 end

@@ -1,12 +1,9 @@
-class Page < ActiveRecord::Base
+class Title < ActiveRecord::Base
   include Charm::PathAttribute
 
   validates :path,
     uniqueness: true
 
-  validates :heading,
-    presence: true
-
-  validates :body,
+  validates :value,
     presence: true
 end

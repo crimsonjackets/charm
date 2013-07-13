@@ -1,6 +1,7 @@
 /.bundle/
+/.ruby-version
+/.ruby-gemset
 /spec/dummy/config/database.yml
 /spec/dummy/config/log/
 /spec/dummy/config/tmp/
-/.ruby-version
-/.ruby-gemset
+/spec/dummy/db/migrate/

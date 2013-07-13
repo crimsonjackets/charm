@@ -9,6 +9,7 @@ module Charm
   autoload :ErrorHandler, 'charm/error_handler'
 
   module Validators
+    autoload :TypeValidator, 'charm/validators/type_validator'
     autoload :URI, 'charm/validators/uri'
   end
 

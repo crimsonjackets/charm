@@ -1,4 +1,10 @@
 ENV['RAILS_ENV'] ||= 'test'
+
+if ENV['TRAVIS']
+  require 'coveralls'
+  Coveralls.wear!
+end
+
 require_relative 'dummy/config/environment'
 
 require 'rspec/rails'
@@ -9,7 +15,4 @@ require 'ffaker'
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.use_transactional_fixtures = true
-
-  config.color_enabled = true
-  config.tty = true
 end

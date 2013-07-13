@@ -21,7 +21,8 @@ describe Charm::PagesController do
     { current_user_id: Admin.all.sample.id }
   end
 
-  describe 'index'
+  describe 'index' do
+  end
 
   describe 'show' do
     describe 'published page' do
@@ -38,15 +39,18 @@ describe Charm::PagesController do
       end
     end
 
-    describe 'unpublished page'
+    describe 'unpublished page' do
       it 'should not show unpublished page' do
 
       end
     end
   end
 
-  describe 'new'
-  describe 'edit'
+  describe 'new' do
+  end
+
+  describe 'edit' do
+  end
 
   describe 'create' do
     describe 'valid' do
@@ -94,7 +98,8 @@ describe Charm::PagesController do
     end
   end
 
-  describe 'update'
+  describe 'update' do
+  end
 
   describe 'destroy' do
     it 'should destroy if admin' do

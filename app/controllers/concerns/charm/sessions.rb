@@ -7,12 +7,12 @@ module Charm
     end
   private
     def current_user
-      @current_user ||= Account.find_by_id(session[:current_user_id]) if session[:current_user_id]
+      @current_user ||= Account.find_by_id(session[:current_user_id])
     end
 
-    def current_user=(user)
+    def current_user= user
       @current_user = user
-      session[:current_user_id] = user.try(:id)
+      session[:current_user_id] = user.try :id
     end
 
     def signed_in?
