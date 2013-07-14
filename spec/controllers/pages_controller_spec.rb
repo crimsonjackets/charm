@@ -75,52 +75,48 @@ describe Charm::PagesController do
     end
   end
 
-  # describe '#create' do
-  #   describe 'valid' do
-  #     it 'should require admin' do
-  #       lambda { post :create, { page: valid_params }, valid_session }.should_not raise_error
-  #     end
-  #
-  #     it 'should be created' do
-  #       lambda { post :create, { page: valid_params }, valid_session }.should change(Page, :count).by(1)
-  #     end
-  #   end
-  #
-  #   describe 'invalid' do
-  #     it 'should require admin' do
-  #       lambda { post :create, { page: valid_params }, { current_user_id: User.pluck(:id).sample } }.should raise_error(Charm::Forbidden)
-  #       lambda { post :create, { page: valid_params } }.should raise_error(Charm::Forbidden)
-  #     end
-  #
-  #     describe 'it should require valid options' do
-  #       it 'should require path' do
-  #         post :create, { page: valid_params.merge(path: nil) }, valid_session
-  #       end
-  #
-  #       it 'should require heading' do
-  #         post :create, { page: valid_params.merge(heading: nil) }, valid_session
-  #       end
-  #
-  #       it 'should require body' do
-  #         post :create, { page: valid_params.merge(body: nil) }, valid_session
-  #       end
-  #
-  #       it 'should require uniqueness of path' do
-  #         path = FactoryGirl.create(:page).path
-  #         post :create, { page: valid_params.merge(path: path) }, valid_session
-  #       end
-  #
-  #       it 'should require valid path' do
-  #         post :create, { page: valid_params.merge(path: '$') }, valid_session
-  #       end
-  #
-  #       after(:each) do
-  #         response.should render_template(:new)
-  #       end
-  #     end
-  #   end
-  # end
-  #
+  describe '#create' do
+    let(:page) { attributes_for(:page) }
+
+    context 'when signed in as admin' do
+      context 'when params valid' do
+        before { controller.send :current_user=, create(:admin) }
+
+        specify { expect { post :create, { page: page } }.to change(Page, :count).by(1) }
+      end
+
+      context 'when params invalid' do
+        [
+          { path: nil },
+          { path: '$' },
+          { body: nil },
+          { heading: nil}
+        ].each do |param|
+          context do
+            before { controller.send :current_user=, create(:admin) }
+
+            specify { expect { post :create, { page: page.merge(param) } }.not_to change(Page, :count).by(1) }
+          end
+        end
+
+        context 'test uniqueness' do
+          before { controller.send :current_user=, create(:admin) }
+          path = FactoryGirl.create(:page).path
+
+          specify { expect { post :create, { page: page.merge(path: path) } }.not_to change(Page, :count).by(1) }
+        end
+      end
+    end
+
+    context 'when signed in as user or guest' do
+      [nil, FactoryGirl.create(:user)].each do |user|
+        before { controller.send :current_user=, user }
+
+        specify { expect { post :create, { page: page } }.to raise_error(Charm::Forbidden) }
+      end
+    end
+  end
+
   # describe '#update' do
   # end
   #

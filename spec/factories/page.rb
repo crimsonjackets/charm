@@ -3,6 +3,8 @@ FactoryGirl.define do
     path { "/#{heading.parameterize}" }
     heading { Faker::HipsterIpsum.sentence(rand(5..10)).chop }
     body { Faker::HipsterIpsum.paragraphs(rand(5..15)).inject { |body, paragraph| body + ["\n\n", " "].sample + paragraph } }
+    published true
+    sequence(:published_at) { |n| "31.12.2011 #{rand(19..22)}:#{rand(0..59)}:#{rand(0..59)}".to_time + n.days }
 
     factory :published_page do
       published true
