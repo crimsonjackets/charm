@@ -15,6 +15,7 @@ module Charm
     end
 
     def render_meta_tags
+      MetaTag.where(path: request.fullpath).map { |meta_tag| tag :meta, meta_tag.data }.join.html_safe
     end
   end
 end
