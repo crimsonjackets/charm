@@ -3,8 +3,12 @@ require 'helper'
 describe Page do
   subject { create :page }
 
-  it { should validate_presence_of(:path) }
+  it_behaves_like Charm::HasPath
   it { should validate_uniqueness_of(:path) }
+
+  %w[/session /session/new /pages /pages/new /pages/1 /pages/1/edit].each do |wrong_path|
+    it { should_not allow_value(wrong_path).for(:path) }
+  end
 
   it { should validate_presence_of(:heading) }
   it { should validate_presence_of(:body) }

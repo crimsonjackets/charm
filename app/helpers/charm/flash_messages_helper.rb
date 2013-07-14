@@ -5,7 +5,7 @@ module Charm
     end
 
     def render_flash_messages
-      flash.map { |type, message| flash_message(type, message) }.join.html_safe
+      flash.map { |type, message| render_flash_message(type, message) }.join.html_safe
     end
   end
 end

@@ -1,5 +1,5 @@
 module Charm
-  module PathAttribute
+  module HasPath
     extend ActiveSupport::Concern
 
     included do

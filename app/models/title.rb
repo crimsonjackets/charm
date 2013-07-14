@@ -1,5 +1,5 @@
 class Title < ActiveRecord::Base
-  include Charm::PathAttribute
+  include Charm::HasPath
 
   validates :path,
     uniqueness: true
