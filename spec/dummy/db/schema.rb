@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130713143841) do
+ActiveRecord::Schema.define(version: 20130714121105) do
 
   create_table "accounts", force: true do |t|
     t.string "type",            default: "User", null: false
@@ -41,5 +41,7 @@ ActiveRecord::Schema.define(version: 20130713143841) do
     t.string "path",  null: false
     t.string "value", null: false
   end
+
+  add_index "titles", ["path"], name: "index_titles_on_path", unique: true, using: :btree
 
 end

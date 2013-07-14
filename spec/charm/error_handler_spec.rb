@@ -1,5 +1,5 @@
 require 'helper'
 
 describe Charm::ErrorHandler do
-  #pending
+  pending
 end

@@ -4,5 +4,7 @@ class CreateTitles < ActiveRecord::Migration
       t.string :path, null: false
       t.string :value, null: false
     end
+
+    add_index :titles, [:path], unique: true
   end
 end
