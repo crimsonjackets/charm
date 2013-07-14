@@ -117,18 +117,74 @@ describe Charm::PagesController do
     end
   end
 
-  # describe '#update' do
-  # end
-  #
-  # describe '#destroy' do
-  #   it 'should destroy if admin' do
-  #     id = FactoryGirl.create(:page).id
-  #     lambda { delete :destroy, { id: id }, valid_session }.should change(Page, :count).by(-1)
-  #   end
-  #
-  #   it 'should restrict if not admin' do
-  #     id = FactoryGirl.create(:page).id
-  #     lambda { delete :destroy, { id: id }, nil }.should raise_error(Charm::Unauthorized)
-  #   end
-  # end
+  describe '#update' do
+    let(:page) { attributes_for(:page) }
+
+    context 'when signed in as admin' do
+      context 'when params valid' do
+        before { controller.send :current_user=, create(:admin) }
+
+        id = FactoryGirl.create(:page).id
+
+        specify { expect { put :update, { id: id, page: page } }.to change{Page.find(id).as_json} }
+      end
+
+      context 'when params invalid' do
+        id = FactoryGirl.create(:page).id
+
+        [
+          { path: nil },
+          { path: '$' },
+          { body: nil },
+          { heading: nil}
+        ].each do |param|
+          context do
+            before { controller.send :current_user=, create(:admin) }
+
+            specify { expect { put :update, { id: id, page: page.merge(param) } }.not_to change{Page.find(id).as_json} }
+          end
+        end
+
+        context 'test uniqueness' do
+          before { controller.send :current_user=, create(:admin) }
+
+          path = FactoryGirl.create(:page).path
+
+          specify { expect { put :update, { id: id, page: page.merge(path: path) } }.not_to change{Page.find(id).as_json} }
+        end
+      end
+    end
+
+    context 'when signed in as user or guest' do
+      [nil, FactoryGirl.create(:user)].each do |user|
+        before { controller.send :current_user=, user }
+
+        id = FactoryGirl.create(:page).id
+
+        specify { expect { put :create, { id: id, page: page } }.to raise_error(Charm::Forbidden) }
+      end
+    end
+  end
+
+  describe '#destroy' do
+    id = FactoryGirl.create(:page).id
+
+    context 'when signed in as admin' do
+      before { controller.send :current_user=, create(:admin) }
+
+      id = FactoryGirl.create(:page).id
+
+      specify { expect { delete :destroy, { id: id } }.to change(Page, :count).by(-1) }
+    end
+
+    context 'when signed in as guest or user' do
+      [nil, FactoryGirl.create(:page)].each do |user|
+        context do
+          before { controller.send :current_user=, user }
+
+          specify { expect { delete :destroy, { id: id } }.to raise_error(Charm::Unauthorized) }
+        end
+      end
+    end
+  end
 end
