@@ -4,9 +4,5 @@ FactoryGirl.define do
     email { "#{Russian::Transliteration.transliterate(name).downcase.sub(' ', '.')}@crimsonjackets.ru" }
     password 'secret'
     password_confirmation 'secret'
-
-    factory :user, class: User
-
-    factory :admin, class: Admin
   end
 end

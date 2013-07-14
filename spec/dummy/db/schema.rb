@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130714121105) do
+ActiveRecord::Schema.define(version: 20130714223057) do
 
   create_table "accounts", force: true do |t|
     t.string "type",            default: "User", null: false
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 20130714121105) do
   end
 
   add_index "pages", ["path"], name: "index_pages_on_path", unique: true, using: :btree
+
+  create_table "templates", force: true do |t|
+    t.string "method", default: "get",  null: false
+    t.string "path",                    null: false
+    t.string "format", default: "html", null: false
+    t.string "file",                    null: false
+  end
+
+  add_index "templates", ["method", "path", "format"], name: "index_templates_on_method_and_path_and_format", unique: true, using: :btree
 
   create_table "titles", force: true do |t|
     t.string "path",  null: false
