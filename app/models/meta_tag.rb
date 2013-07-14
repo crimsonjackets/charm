@@ -1,6 +1,6 @@
 class MetaTag < ActiveRecord::Base
+  include Charm::HasPath
   include Charm::Validators
-  include Charm::PathAttribute
 
   serialize :data, Marshal
 
