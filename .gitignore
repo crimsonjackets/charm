@@ -2,6 +2,6 @@
 /.ruby-version
 /.ruby-gemset
 /spec/dummy/config/database.yml
-/spec/dummy/config/log/
-/spec/dummy/config/tmp/
+/spec/dummy/log/
+/spec/dummy/tmp/
 /spec/dummy/db/migrate/
