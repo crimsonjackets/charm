@@ -1,18 +1,19 @@
 class Page < ActiveRecord::Base
-  class PagePathValidator < ActiveModel::EachValidator
-    def validate_each record, attribute, value
-    end
-  end
-
   include Charm::HasPath
 
   validates :path,
-    page_path: true,
     uniqueness: true
+
+  validate :ensure_path_is_not_reserved
 
   validates :heading,
     presence: true
 
   validates :body,
     presence: true
+private
+  def ensure_path_is_not_reserved
+    action = Charm::Engine.routes.recognize_path path
+    errors.add :path unless action == { controller: 'charm/pages', action: 'show', path: path.try(:[], 1..-1).to_s }
+  end
 end
