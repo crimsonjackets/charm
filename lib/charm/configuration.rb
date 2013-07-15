@@ -9,7 +9,9 @@ module Charm
         'Charm::Forbidden' => 'charm/error_pages#forbidden',
         'Charm::NotFound' => 'charm/error_pages#not_found',
         'ActiveRecord::RecordNotFound' => 'charm/error_pages#not_found'
-      }
+      },
+
+      templates: []
     }
 
     mattr_reader :defaults
@@ -18,6 +20,6 @@ module Charm
       @@defaults.each { |k, v| self.send "#{k}=", v }
     end
 
-    attr_accessor :error_pages
+    attr_accessor :error_pages, :templates
   end
 end

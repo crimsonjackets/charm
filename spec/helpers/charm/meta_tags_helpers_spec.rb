@@ -29,7 +29,7 @@ describe Charm::MetaTagsHelper do
       meta_tag_attributes = [
         { name: 'description', content: 'awesome' },
         { itemprop: 'image', content: '/assets/favicon.png' },
-        { name: 'author', content: 'Олег' },
+        { name: 'author', content: 'Олег' }
       ]
 
       helper.request.stub(:fullpath).and_return(path)
