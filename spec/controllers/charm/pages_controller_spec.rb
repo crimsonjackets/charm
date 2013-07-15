@@ -3,6 +3,8 @@ require 'helper'
 describe Charm::PagesController do
   routes { Charm::Engine.routes }
 
+  it_behaves_like Charm::Scaffold
+
   describe '#index' do
   end
 
@@ -38,22 +40,6 @@ describe Charm::PagesController do
           specify { expect(get :show, { path: page.path[1..-1] }).to be_success }
         end
       end
-    end
-  end
-
-  describe '#new' do
-    context 'when signed in as guest or user' do
-      [nil, FactoryGirl.create(:user)].each do |user|
-        before { controller.send :current_user=, user }
-
-        specify { expect { get :new }.to raise_error(Charm::Forbidden) }
-      end
-    end
-
-    context 'when signed in as admin' do
-      before { controller.send :current_user=, create(:admin) }
-
-      specify { expect { get :new }.not_to raise_error }
     end
   end
 
