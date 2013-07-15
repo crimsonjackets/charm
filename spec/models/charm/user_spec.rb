@@ -1,6 +1,6 @@
 require 'helper'
 
-describe User do
+describe Charm::User do
   subject { create :user }
 
   pending

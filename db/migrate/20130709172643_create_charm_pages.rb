@@ -1,6 +1,6 @@
-class CreatePages < ActiveRecord::Migration
+class CreateCharmPages < ActiveRecord::Migration
   def change
-    create_table :pages do |t|
+    create_table :charm_pages do |t|
       t.string :path, null: false
       t.boolean :published, null: false, default: false
       t.datetime :published_at
@@ -8,6 +8,6 @@ class CreatePages < ActiveRecord::Migration
       t.text :body, null: false
     end
 
-    add_index :pages, [:path], unique: true
+    add_index :charm_pages, [:path], unique: true
   end
 end

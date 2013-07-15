@@ -11,23 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130714223057) do
+ActiveRecord::Schema.define(version: 20130715103047) do
 
-  create_table "accounts", force: true do |t|
+  create_table "charm_accounts", force: true do |t|
     t.string "type",            default: "User", null: false
     t.string "email",                            null: false
     t.string "password_digest",                  null: false
     t.string "name",                             null: false
   end
 
-  add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
+  add_index "charm_accounts", ["email"], name: "index_charm_accounts_on_email", unique: true, using: :btree
 
-  create_table "meta_tags", force: true do |t|
+  create_table "charm_meta_tags", force: true do |t|
     t.string "path",                         null: false
     t.binary "data", default: "\\x04087b00", null: false
   end
 
-  create_table "pages", force: true do |t|
+  create_table "charm_pages", force: true do |t|
     t.string   "path",                         null: false
     t.boolean  "published",    default: false, null: false
     t.datetime "published_at"
@@ -35,20 +35,20 @@ ActiveRecord::Schema.define(version: 20130714223057) do
     t.text     "body",                         null: false
   end
 
-  add_index "pages", ["path"], name: "index_pages_on_path", unique: true, using: :btree
+  add_index "charm_pages", ["path"], name: "index_charm_pages_on_path", unique: true, using: :btree
 
-  create_table "templates", force: true do |t|
+  create_table "charm_templates", force: true do |t|
     t.string "path", null: false
     t.string "file", null: false
   end
 
-  add_index "templates", ["path"], name: "index_templates_on_path", unique: true, using: :btree
+  add_index "charm_templates", ["path"], name: "index_charm_templates_on_path", unique: true, using: :btree
 
-  create_table "titles", force: true do |t|
+  create_table "charm_titles", force: true do |t|
     t.string "path",  null: false
     t.string "value", null: false
   end
 
-  add_index "titles", ["path"], name: "index_titles_on_path", unique: true, using: :btree
+  add_index "charm_titles", ["path"], name: "index_charm_titles_on_path", unique: true, using: :btree
 
 end

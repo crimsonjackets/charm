@@ -4,7 +4,7 @@ module Charm
 
     before_action -> {
       @page = Page.where(params[:path].nil? ? { id: params[:id] } : { path: "/#{params[:path]}" })
-      @page = @page.where(published: true).where('"pages"."published_at" <= ?', Time.now) unless signed_in_as_admin?
+      @page = @page.where(published: true).where('"charm_pages"."published_at" <= ?', Time.now) unless signed_in_as_admin?
       @page = @page.first!
     }, only: %w[show edit update destroy]
 

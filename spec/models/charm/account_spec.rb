@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Account do
+describe Charm::Account do
   subject { create :account }
 
   it { should validate_presence_of(:email) }

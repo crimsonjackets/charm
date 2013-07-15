@@ -50,7 +50,7 @@ describe Charm::PagesController do
       context 'when params valid' do
         before { controller.send :current_user=, create(:admin) }
 
-        specify { expect { post :create, { page: page } }.to change(Page, :count).by(1) }
+        specify { expect { post :create, { page: page } }.to change(Charm::Page, :count).by(1) }
       end
 
       context 'when params invalid' do
@@ -63,7 +63,7 @@ describe Charm::PagesController do
           context do
             before { controller.send :current_user=, create(:admin) }
 
-            specify { expect { post :create, { page: page.merge(param) } }.not_to change(Page, :count).by(1) }
+            specify { expect { post :create, { page: page.merge(param) } }.not_to change(Charm::Page, :count).by(1) }
           end
         end
 
@@ -71,7 +71,7 @@ describe Charm::PagesController do
           before { controller.send :current_user=, create(:admin) }
           path = FactoryGirl.create(:page).path
 
-          specify { expect { post :create, { page: page.merge(path: path) } }.not_to change(Page, :count).by(1) }
+          specify { expect { post :create, { page: page.merge(path: path) } }.not_to change(Charm::Page, :count).by(1) }
         end
       end
     end
@@ -94,7 +94,7 @@ describe Charm::PagesController do
 
         id = FactoryGirl.create(:page).id
 
-        specify { expect { put :update, { id: id, page: page } }.to change{Page.find(id).as_json} }
+        specify { expect { put :update, { id: id, page: page } }.to change{Charm::Page.find(id).as_json} }
       end
 
       context 'when params invalid' do
@@ -109,7 +109,7 @@ describe Charm::PagesController do
           context do
             before { controller.send :current_user=, create(:admin) }
 
-            specify { expect { put :update, { id: id, page: page.merge(param) } }.not_to change{Page.find(id).as_json} }
+            specify { expect { put :update, { id: id, page: page.merge(param) } }.not_to change{Charm::Page.find(id).as_json} }
           end
         end
 
@@ -118,7 +118,7 @@ describe Charm::PagesController do
 
           path = FactoryGirl.create(:page).path
 
-          specify { expect { put :update, { id: id, page: page.merge(path: path) } }.not_to change{Page.find(id).as_json} }
+          specify { expect { put :update, { id: id, page: page.merge(path: path) } }.not_to change{Charm::Page.find(id).as_json} }
         end
       end
     end
