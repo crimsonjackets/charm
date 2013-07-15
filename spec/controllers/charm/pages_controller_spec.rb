@@ -3,7 +3,7 @@ require 'helper'
 describe Charm::PagesController do
   routes { Charm::Engine.routes }
 
-  it_behaves_like Charm::Scaffold
+  it_behaves_like Charm::Scaffold, except: [:index, :show]
 
   describe '#index' do
   end
@@ -75,14 +75,6 @@ describe Charm::PagesController do
         end
       end
     end
-
-    context 'when signed in as user or guest' do
-      [nil, FactoryGirl.create(:user)].each do |user|
-        before { controller.send :current_user=, user }
-
-        specify { expect { post :create, { page: page } }.to raise_error(Charm::Forbidden) }
-      end
-    end
   end
 
   describe '#update' do
@@ -120,16 +112,6 @@ describe Charm::PagesController do
 
           specify { expect { put :update, { id: id, page: page.merge(path: path) } }.not_to change{Charm::Page.find(id).as_json} }
         end
-      end
-    end
-
-    context 'when signed in as user or guest' do
-      [nil, FactoryGirl.create(:user)].each do |user|
-        before { controller.send :current_user=, user }
-
-        id = FactoryGirl.create(:page).id
-
-        specify { expect { put :create, { id: id, page: page } }.to raise_error(Charm::Forbidden) }
       end
     end
   end
