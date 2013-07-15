@@ -13,7 +13,7 @@ ru:
 
   activerecord:
     attributes:
-      page:
+      charm/page:
         published: Опубликовать
         published_at: Дата публикации
         path: Адрес
