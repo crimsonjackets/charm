@@ -17,12 +17,13 @@ describe Charm::ErrorsHelper do
       expect { helper.errors_for(invalid_record, wrong_options) }.to raise_error
       expect { helper.errors_for(valid_record, wrong_options) }.to raise_error
 
+      helper.errors_for(valid_record).should be_empty
       helper.errors_for(valid_record, only_options).should be_empty
       helper.errors_for(valid_record, except_options).should be_empty
 
-      helper.errors_for(invalid_record).size.should eq(3)
-      helper.errors_for(invalid_record, only_options).size.should eq(2)
-      helper.errors_for(invalid_record, except_options).size.should eq(1)
+      helper.errors_for(invalid_record).size.should == 3
+      helper.errors_for(invalid_record, only_options).size.should == 2
+      helper.errors_for(invalid_record, except_options).size.should == 1
     end
   end
 
