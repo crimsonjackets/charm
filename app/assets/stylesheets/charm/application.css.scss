@@ -1,5 +1,73 @@
 /*
+*= require kube
 *= require pnotify
 *= require_self
 *= require_tree .
 */
+
+body {
+  cursor: default;
+}
+
+a {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.wrapper {
+	padding: 0 10px;
+	width: 94%;
+	max-width: 1300px;
+	margin: auto;
+}
+
+table {
+  th:first-child, td:first-child {
+    padding-left: 0;
+  }
+}
+
+#admin-dashboard {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background: #fff;
+  padding: 5px 0;
+
+  form {
+    margin: 0;
+  }
+
+  nav {
+    ul {
+      list-style: none;
+      display: inline-block;
+      margin: 0;
+
+      li {
+        display: inline-block;
+
+        &.divider {
+          padding-left: 1em;
+        }
+      }
+
+      li + li {
+        margin-left: 1em;
+      }
+    }
+
+    &.left {
+      float: left;
+    }
+
+    &.right {
+      float: right;
+    }
+  }
+
+  & + .wrapper {
+    padding-top: 3em;
+  }
+}

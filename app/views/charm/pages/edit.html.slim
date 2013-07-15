@@ -1,3 +1,21 @@
+- content_for :admin_dashboard do
+  ul
+    li= content_tag :span, 'Сохранить', onclick: "$('form.edit_page').submit();", class: 'charm-link'
+
+    li= link_to 'Посмотреть', @page, class: 'charm-link'
+
+    li
+      = form_for @page, html: { id: nil, class: nil } do |f|
+        = f.hidden_field :published, value: (@page.published ? '0' : '1')
+        = content_tag :span, (@page.published ? 'Скрыть' : 'Опубликовать'), onclick: "$(this).closest('form').submit()", class: 'charm-link'
+
+    li= form_for @page, method: :delete, html: { id: nil, class: nil, data: { confirm: 'Вы уверены?' } } do
+      = content_tag :span, 'Удалить', onclick: "$(this).closest('form').submit()", class: 'charm-link'
+
+    li.divider
+
+    li= link_to 'Все страницы', pages_path, class: 'charm-link'
+
 - content_for :heading, 'Редактирование страницы'
 
 = render 'form'

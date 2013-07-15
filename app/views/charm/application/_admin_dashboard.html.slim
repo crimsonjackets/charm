@@ -1,0 +1,9 @@
+#admin-dashboard
+  .wrapper
+    nav.left
+      = yield :admin_dashboard
+
+    nav.right
+      ul
+        li= form_tag session_path, method: :delete, id: nil, class: nil do
+          = content_tag :a, 'Выйти', onclick: "$(this).closest('form').submit()"

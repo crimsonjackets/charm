@@ -1,3 +1,19 @@
+- content_for :admin_dashboard do
+  ul
+    li= link_to 'Редактировать', edit_page_path(@page)
+
+    li
+      = form_for @page, html: { id: nil, class: nil } do |f|
+        = f.hidden_field :published, value: (@page.published ? '0' : '1')
+        = content_tag :a, (@page.published ? 'Скрыть' : 'Опубликовать'), onclick: "$(this).closest('form').submit()"
+
+    li= form_for @page, method: :delete, html: { id: nil, class: nil, data: { confirm: 'Вы уверены?' } } do
+      = content_tag :a, 'Удалить', onclick: "$(this).closest('form').submit()"
+
+    li.divider
+
+    li= link_to 'Все страницы', pages_path
+
 - content_for :heading, @page.heading.html_safe
 
 h1= @page.heading.html_safe

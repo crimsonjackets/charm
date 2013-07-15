@@ -5,5 +5,7 @@ meta charset="utf-8"
 = render_meta_tags
 = stylesheet_link_tag 'application', media: 'all', data: { turbolinks_track: true }
 = javascript_include_tag 'application', data: { turbolinks_track: true }
-= render_flash_messages
-= yield
+= render 'admin_dashboard' if signed_in_as_admin?
+.wrapper
+  = render_flash_messages
+  = yield
