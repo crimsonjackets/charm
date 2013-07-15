@@ -3,7 +3,7 @@ require 'helper'
 describe Charm::PagesController do
   routes { Charm::Engine.routes }
 
-  it_behaves_like Charm::Scaffold
+  it_behaves_like Charm::Scaffold, except: [:index, :show]
 
   describe '#index' do
   end
