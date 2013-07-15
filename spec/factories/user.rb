@@ -1,3 +1,3 @@
 FactoryGirl.define do
-  factory :user, class: User, parent: :account
+  factory :user, class: Charm::User, parent: :account
 end

@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Admin do
+describe Charm::Admin do
   subject { create :admin }
 
   pending

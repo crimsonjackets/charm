@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :page do
+  factory :page, class: Charm::Page do
     path { "/#{heading.parameterize}" }
     heading { Faker::HipsterIpsum.sentence(rand(5..10)).chop }
     body { Faker::HipsterIpsum.paragraphs(rand(5..15)).inject { |body, paragraph| body + ["\n\n", " "].sample + paragraph } }

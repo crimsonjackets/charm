@@ -1,6 +1,6 @@
 require 'helper'
 
-describe Page do
+describe Charm::Page do
   subject { create :page }
 
   it_behaves_like Charm::HasPath
