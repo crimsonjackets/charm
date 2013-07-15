@@ -18,6 +18,4 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
 end
 
-['../matchers/**/*.rb', '../support/**/*.rb'].each do |path|
-  Dir[File.expand_path(path, __FILE__)].each { |file| require file }
-end
+Dir[File.expand_path('../matchers/**/*.rb', __FILE__)].each { |file| require file }
