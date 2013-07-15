@@ -14,6 +14,7 @@ module Charm
     end
 
     initializer 'charm.action_view_configuration' do |app|
+      # TODO fix that
       app.config.action_view.field_error_proc = ->(html_tag, _) { html_tag }
     end
 
