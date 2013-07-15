@@ -3,7 +3,7 @@ require 'helper'
 describe Charm::PagesController do
   routes { Charm::Engine.routes }
 
-  it_behaves_like Charm::Scaffold
+  it_behaves_like 'Charm::Scaffold'
 
   describe '#index' do
   end
@@ -40,24 +40,6 @@ describe Charm::PagesController do
           specify { expect(get :show, { path: page.path[1..-1] }).to be_success }
         end
       end
-    end
-  end
-
-  describe '#edit' do
-    let(:page) { create :page }
-
-    context 'when signed in as guest or user' do
-      [nil, FactoryGirl.create(:user)].each do |user|
-        before { controller.send :current_user=, user }
-
-        specify { expect { get :edit, { id: page.id } }.to raise_error(Charm::Forbidden) }
-      end
-    end
-
-    context 'when signed in as admin' do
-      before { controller.send :current_user=, create(:admin) }
-
-      specify { expect { get :edit, { id: page.id } }.not_to raise_error }
     end
   end
 
@@ -148,28 +130,6 @@ describe Charm::PagesController do
         id = FactoryGirl.create(:page).id
 
         specify { expect { put :create, { id: id, page: page } }.to raise_error(Charm::Forbidden) }
-      end
-    end
-  end
-
-  describe '#destroy' do
-    id = FactoryGirl.create(:page).id
-
-    context 'when signed in as admin' do
-      before { controller.send :current_user=, create(:admin) }
-
-      id = FactoryGirl.create(:page).id
-
-      specify { expect { delete :destroy, { id: id } }.to change(Page, :count).by(-1) }
-    end
-
-    context 'when signed in as guest or user' do
-      [nil, FactoryGirl.create(:page)].each do |user|
-        context do
-          before { controller.send :current_user=, user }
-
-          specify { expect { delete :destroy, { id: id } }.to raise_error(Charm::Unauthorized) }
-        end
       end
     end
   end
