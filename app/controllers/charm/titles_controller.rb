@@ -6,10 +6,6 @@ module Charm
       @title = Title.find(params[:id])
     }, only: %w[update destroy]
 
-    def index
-      @titles = Title.all
-    end
-
     def create
       @title = Title.new title_params
       render json: @title.save ? @title : @title.errors

@@ -6,10 +6,6 @@ module Charm
       @meta_tag = MetaTag.find(params[:id])
     }, only: %w[update destroy]
 
-    def index
-      @meta_tags = MetaTag.all
-    end
-
     def create
       @meta_tag = MetaTag.new meta_tag_params
       render json: @meta_tag.save ? @meta_tag : @meta_tag.errors
