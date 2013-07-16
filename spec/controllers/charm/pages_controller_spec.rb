@@ -3,7 +3,7 @@ require 'helper'
 describe Charm::PagesController do
   routes { Charm::Engine.routes }
 
-  it_behaves_like Charm::Scaffold, except: [:index, :show]
+  it_behaves_like Charm::Scaffold, :page, except: [:index, :show]
 
   describe '#index' do
   end
@@ -47,12 +47,6 @@ describe Charm::PagesController do
     let(:page) { attributes_for(:page) }
 
     context 'when signed in as admin' do
-      context 'when params valid' do
-        before { controller.send :current_user=, create(:admin) }
-
-        specify { expect { post :create, { page: page } }.to change(Charm::Page, :count).by(1) }
-      end
-
       context 'when params invalid' do
         [
           { path: nil },

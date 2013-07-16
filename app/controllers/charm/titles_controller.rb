@@ -8,16 +8,16 @@ module Charm
 
     def create
       @title = Title.new title_params
-      render json: @title.save ? @title : @title.errors
+      render json: (@title.save ? @title : @title.errors)
     end
 
     def update
-      render json: @title.update(title_params) ? head(:no_content) : @title.errors
+      render json: (@title.update(title_params) ? @title : @title.errors)
     end
 
     def destroy
       @title.destroy
-      render json: head(:no_content)
+      render nothing: true
     end
   private
     def title_params

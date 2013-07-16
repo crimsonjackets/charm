@@ -1,14 +1,14 @@
 require 'helper'
 
-shared_examples_for Charm::Scaffold do |options|
+shared_examples_for Charm::Scaffold do |model_name, options|
   actions = {
     index: 'get :index',
-    show:  'get :show, id: page.id',
+    show:  "get :show, id: #{model_name}.id",
     new:  'get :new',
-    edit: 'get :edit, id: page.id',
-    create: 'post :create, page: page_params',
-    update: 'put :update, { id: page.id, page: page_params }',
-    destroy: 'delete :destroy, id: page.id'
+    edit: "get :edit, id: #{model_name}.id",
+    create: "post :create, #{model_name}: #{model_name}_params",
+    update: "put :update, { id: #{model_name}.id, #{model_name}: #{model_name}_params }",
+    destroy: "delete :destroy, id: #{model_name}.id"
   }
 
   if options.try(:[], :only).present?
@@ -17,8 +17,8 @@ shared_examples_for Charm::Scaffold do |options|
     actions.except!(*options[:except])
   end
 
-  let(:page) { create :page }
-  let(:page_params) { attributes_for :page }
+  let(model_name) { create model_name }
+  let("#{model_name}_params") { attributes_for model_name }
 
   actions.each_pair do |name, action|
     describe "##{name}" do
@@ -43,4 +43,23 @@ shared_examples_for Charm::Scaffold do |options|
       end
     end
   end
+
+  describe '#create' do
+    context 'creating a record' do
+      specify do
+        controller.send :current_user=, create(:admin)
+        expect { instance_eval(actions[:create]) }.to change(instance_eval("Charm::#{model_name.to_s.camelize}"), :count).by(1)
+      end
+    end
+  end if actions.has_key?(:create)
+
+  describe '#destroy' do
+    context 'destroying a record' do
+      specify do
+        controller.send :current_user=, create(:admin)
+        page_id = instance_eval(model_name.to_s).id
+        expect { delete :destroy, { id: page_id } }.to change(instance_eval("Charm::#{model_name.to_s.camelize}"), :count).by(-1)
+      end
+    end
+  end if actions.has_key?(:destroy)
 end
