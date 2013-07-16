@@ -8,11 +8,17 @@ module Charm
     }, only: %w[unauthorized forbidden]
 
     def unauthorized
-      render 'charm/sessions/new', status: :unauthorized
+      respond_to do |format|
+        format.html { render 'charm/sessions/new', status: :unauthorized }
+        format.json { render json: 'unauthorized' }
+      end
     end
 
     def forbidden
-      render 'charm/sessions/new', status: :forbidden
+      respond_to do |format|
+        format.html { render 'charm/sessions/new', status: :forbidden }
+        format.html { render json: 'forbidden' }
+      end
     end
 
     def not_found
