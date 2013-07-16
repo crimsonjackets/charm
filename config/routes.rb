@@ -3,6 +3,7 @@ Charm::Engine.routes.draw do
 
   resources :pages, only: %w[index new create]
   resources :meta_tags, only: %w[index create update destroy]
+  resources :titles, only: %w[index create update destroy]
   get 'pages/:id/edit', to: 'pages#edit'
   get 'pages/:id', to: 'pages#show'
   %w[patch put].each { |method| send method, 'pages/:id', to: 'pages#update' }
